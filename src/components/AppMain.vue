@@ -13,7 +13,24 @@ export default {
 
 <template>
     <main>
-        <h1>main</h1>
+        <ul>
+            <li v-for="movie in store.moviesList">
+                <ul>
+                    <li>
+                        <h3>Titolo: {{ movie.title }}</h3>
+                    </li>
+                    <li>
+                        <h4>Titolo originale: {{ movie.original_title }}</h4>
+                    </li>
+                    <li>
+                        <span>Lingua: {{ movie.original_language }}</span>
+                    </li>
+                    <li>
+                        <span>Voto: {{ movie.vote_average }}/10</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </main>
 </template>
 
