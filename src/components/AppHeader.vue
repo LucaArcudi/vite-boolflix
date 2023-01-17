@@ -8,14 +8,14 @@ export default {
     data() {
         return {
             store,
-            apiUri: "https://api.themoviedb.org/3/search/movie",
+            apiUri: "https://api.themoviedb.org/3/search/",
             apiKey: "000338f49db5f35b4ac8f836f4766eac",
             userSearch: "",
         }
     },
     methods: {
-        getMovies() {
-            axios.get(this.apiUri, {
+        getMoviesOrSeries(apiResource) {
+            axios.get(this.apiUri + apiResource, {
                 params: {
                     api_key: this.apiKey,
                     language: "it-IT",
@@ -25,7 +25,12 @@ export default {
             })
                 .then((response) => {
                     console.log(response.data.results);
-                    this.store.moviesList = response.data.results;
+                    if (apiResource === "movie") {
+                        this.store.moviesList = response.data.results;
+                    } else {
+                        this.store.seriesList = response.data.results;
+                    }
+
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -33,7 +38,14 @@ export default {
                 .then(function () {
 
                 });
+        },
+
+        getResource() {
+            this.getMoviesOrSeries("movie");
+            this.getMoviesOrSeries("tv")
         }
+
+
     },
 
 }
@@ -42,7 +54,7 @@ export default {
 <template>
     <header>
         <input v-model="userSearch" type="text" placeholder="Search for a movie or a TVs">
-        <button @click="getMovies()">Search</button>
+        <button @click="getResource()">Search</button>
     </header>
 </template>
 
