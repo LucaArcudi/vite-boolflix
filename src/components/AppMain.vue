@@ -13,16 +13,28 @@ export default {
     methods: {
         getImagePath: function (imgPath) {
             return new URL(`../assets/img/${imgPath}.png`, import.meta.url).href;
+        },
+
+        getNewRating(old_rating) {
+            old_rating = old_rating / 2;
+            return old_rating;
         }
     }
+
 }
 </script>
 
 <template>
     <main>
         <ul>
-            <li v-for="movie in store.moviesList">
+            <li>
+                <h2>MOVIES</h2>
+            </li>
+            <li class="element" v-for="movie in store.moviesList">
                 <ul>
+                    <li>
+                        <img :src="`https://image.tmdb.org/t/p/w92${movie.poster_path}`" alt="">
+                    </li>
                     <li>
                         <h3>Titolo: {{ movie.title }}</h3>
                     </li>
@@ -37,12 +49,19 @@ export default {
                         </p>
                     </li>
                     <li>
-                        <span>Voto: {{ movie.vote_average }}/10</span>
+                        <span>Voto: {{ Math.ceil(getNewRating(movie.vote_average)) }}/5</span>
                     </li>
                 </ul>
+                <hr>
             </li>
-            <li v-for="serie in store.seriesList">
+            <li>
+                <h2>SERIES</h2>
+            </li>
+            <li class="element" v-for="serie in store.seriesList">
                 <ul>
+                    <li>
+                        <img :src="`https://image.tmdb.org/t/p/w92${serie.poster_path}`" alt="">
+                    </li>
                     <li>
                         <h3>Titolo: {{ serie.name }}</h3>
                     </li>
@@ -66,7 +85,19 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-img {
+p img {
     width: 10px;
+}
+
+h2 {
+    margin-top: 2rem;
+}
+
+li.element {
+    margin-top: 2rem;
+}
+
+hr {
+    margin-top: 2rem;
 }
 </style>
