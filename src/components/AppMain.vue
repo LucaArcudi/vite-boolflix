@@ -23,7 +23,9 @@ export default {
                         <h4>Titolo originale: {{ movie.original_title }}</h4>
                     </li>
                     <li>
-                        <span>Lingua: {{ movie.original_language }}</span>
+                        <p>
+                            Lingua: <span class="fi" :class="`fi-${movie.original_language}`"></span>
+                        </p>
                     </li>
                     <li>
                         <span>Voto: {{ movie.vote_average }}/10</span>
