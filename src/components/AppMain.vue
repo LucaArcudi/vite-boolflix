@@ -49,7 +49,8 @@ export default {
                         </p>
                     </li>
                     <li>
-                        <span>Voto: {{ Math.ceil(getNewRating(movie.vote_average)) }}/5</span>
+                        Vote: <span v-for="n in 5"
+                            :class="(n <= getNewRating(movie.vote_average)) ? 'full-star' : 'empty - star'">*</span>
                     </li>
                 </ul>
                 <hr>
@@ -99,5 +100,13 @@ li.element {
 
 hr {
     margin-top: 2rem;
+}
+
+.full-star {
+    color: gold;
+}
+
+.empty-star {
+    color: gray;
 }
 </style>
